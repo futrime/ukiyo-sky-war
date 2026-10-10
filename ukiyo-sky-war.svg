@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="root" viewBox="0 0 1280 720" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="background:#15120f;user-select:none;-webkit-user-select:none;touch-action:none;cursor:crosshair">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="root" zoomAndPan="disable" viewBox="0 0 1280 720" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="background:#15120f;user-select:none;-webkit-user-select:none;touch-action:none;cursor:crosshair">
 <title>浮世空戦 · Ukiyo-e Sky War</title>
 <style>
   .m{font-family:'Hiragino Mincho ProN','Hiragino Mincho Pro','Yu Mincho','YuMincho','Noto Serif JP','Noto Serif CJK JP','Songti SC','STSong','SimSun',serif}
@@ -1170,6 +1170,8 @@ function update(dt){
   music(dt);
 }
 function render(){
+  // a standalone SVG can be panned with Shift+drag (Shift is the boost key): keep the view pinned
+  if(root.currentTranslate.x||root.currentTranslate.y||root.currentScale!==1){ root.currentTranslate.x=0; root.currentTranslate.y=0; root.currentScale=1; }
   NI=0;
   const deg=cam.roll*180/Math.PI;
   hzG.setAttribute('transform','translate('+CX+','+CY+') rotate('+deg.toFixed(2)+')');
