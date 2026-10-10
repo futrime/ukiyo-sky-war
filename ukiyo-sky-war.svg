@@ -698,7 +698,7 @@ function drawEnemy(e){
 /* ---------- boss: the sea dragon ---------- */
 const BN=24;
 function spawnBoss(){
-  boss={hp:170*hpMul(),max:170*hpMul(),t:0,z0:330,segs:[],fireT:4,dropT:3,flash:0,dying:0,burst:0,burstT:6,sa:0,boomT:0};
+  boss={hp:300*hpMul(),max:300*hpMul(),t:0,z0:330,segs:[],fireT:4,dropT:3,flash:0,dying:0,burst:0,burstT:6,sa:0,boomT:0};
   for(let i=0;i<BN;i++) boss.segs.push({x:0,y:-40,z:400,r:2.4*(1-i/BN*0.78),dead:false});
   emit('boss',{}); banner('龍 来襲','THE DRAGON RISES',3.2); sfx.gong(); flashA=0.4;
 }
@@ -1070,7 +1070,7 @@ root.addEventListener('pointerdown',e=>{
   const p=toView(e); mx=p.x; my=p.y-(e.pointerType==='touch'?110:0); mouseActive=true;
   if(state==='title'||(state==='over'&&overT>1)){ startGame(); return; }
   if(state==='paused'){ setPause(false); return; }
-  if(e.button===2){ bomb(); return; }
+  if(e.button===2) return;   // right button → bomb, handled on mousedown (fires even while the left button is held)
   if(e.pointerType==='touch'){ const n=performance.now(); if(n-lastTap<300) bomb(); lastTap=n; }
   firing=true;
   try{ root.setPointerCapture(e.pointerId); }catch(_){}
@@ -1078,6 +1078,8 @@ root.addEventListener('pointerdown',e=>{
 root.addEventListener('pointerup',e=>{ if(e.button!==2) firing=false; });
 root.addEventListener('pointercancel',()=>{ firing=false; });
 root.addEventListener('contextmenu',e=>e.preventDefault());
+// a second button pressed while firing is a chorded press: no new pointerdown is sent, but mousedown is
+root.addEventListener('mousedown',e=>{ if(e.button===2&&state==='play') bomb(); });
 const MOVEK=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'];
 window.addEventListener('keydown',e=>{
   audioInit();
