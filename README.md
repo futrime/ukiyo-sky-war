@@ -2,7 +2,7 @@
 
 浮世绘风格的 3D 即时空战游戏，**整个游戏就是一个 SVG 文件**（约 70 KB）。没有 Canvas、没有 WebGL、不加载任何外部资源。
 
-**在线游玩 → https://futrime.github.io/ukiyo-sky-war/**
+**在线游玩 → https://zjzh.me/ukiyo-sky-war/**
 也可以下载 [`ukiyo-sky-war.svg`](ukiyo-sky-war.svg)，直接拖进浏览器打开。
 
 ![screenshot](docs/screenshot.jpg)
